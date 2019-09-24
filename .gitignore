@@ -1,5 +1,7 @@
 .DS_Store
 .idea
+Contributing.md
+Readme.md
 *.ai
 *.log
 *.pdf
