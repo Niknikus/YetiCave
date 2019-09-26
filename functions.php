@@ -24,3 +24,13 @@ function price_format($integer) {
         return $new_price . ' ' . '&#8381;';
     }
 }
+function time_to_midnight() {
+    date_default_timezone_set('Europe/Moscow');
+    $curr_date = strtotime('now');
+    $hour_c = date('H', $curr_date);
+    $min_c = date('i', $curr_date);
+    $zero_H = 24;
+    $zero_M = 60;
+    $result = ($zero_H - $hour_c) . ':' . ($zero_M - $min_c);
+    print($result);
+}
