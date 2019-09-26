@@ -29,8 +29,17 @@ function time_to_midnight() {
     $curr_date = strtotime('now');
     $hour_c = date('H', $curr_date);
     $min_c = date('i', $curr_date);
-    $zero_H = 24;
+    $zero_H = 23;
     $zero_M = 60;
     $result = ($zero_H - $hour_c) . ':' . ($zero_M - $min_c);
     print($result);
+}
+function add_id_file($startIndex, $fileName, $postFix, $array) {
+    $index = $startIndex;
+    $new_array = $array;
+    foreach ($array as $item => $value) {
+        $new_array[$index-1]['root'] = $fileName . $postFix . '?' . 'id=' . $index ;
+        $index += 1;
+    }
+    return $new_array;
 }
