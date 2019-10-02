@@ -43,3 +43,18 @@ function add_id_file($startIndex, $fileName, $postFix, $array) {
     }
     return $new_array;
 }
+function beauty_characters($text) {
+    $text = trim($text);
+    $text = stripcslashes($text);
+    $text = strip_tags($text);
+    $text = htmlspecialchars($text);
+    return $text;
+}
+
+function path_params_compiler($array) {
+    $out = '';
+    foreach ($array as $item => $value) {
+        $out .= $item . '=' . $value . '&';
+    }
+    return $out;
+}
