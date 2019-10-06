@@ -8,7 +8,7 @@ if (!isset($_GET['newlot'])) {
         header('Location: ../error404.php');
     };
 };
-$content_page = render_template('templates/lot.php', ['lots_list' => $lots_list, 'index' => $index]);
+$content_page = render_template('templates/lot.php', ['lot' => $lots_list[$index]]);
 
 renderPage('templates/layout.php', ['content' => $content_page, 'title' => $lots_list[$index]['title'],
     'user_name' => 'Гость',
