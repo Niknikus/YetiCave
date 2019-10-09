@@ -1,7 +1,7 @@
 <?php
 require_once 'functions.php';
 require_once 'lot-list.php';
-
+session_start();
 if (isset($_COOKIE['history'])) {
     $id_arr = json_decode($_COOKIE['history'], true);
     $lots = [];

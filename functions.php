@@ -58,3 +58,13 @@ function path_params_compiler($array) {
     }
     return $out;
 }
+
+function searchUsersByEmail($email, $array) {
+    $user = 0;
+    foreach ($array as $item => $value) {
+        if ($email == $array[$item]['email']) {
+            $user = $array[$item];
+        };
+    };
+    return $user;
+}

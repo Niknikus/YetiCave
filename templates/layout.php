@@ -21,17 +21,18 @@
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
 
         <nav class="user-menu">
-            <?php if ($data['is_auth']): ?>
+            <?php if (isset($_SESSION['is_auth'])): ?>
                 <div class="user-menu__image">
-                    <img src="<?=$data['user_avatar'];?>" width="40"'.' height="40" alt="Пользователь">
+                    <img src="<?=$_SESSION['is_auth']['user_avatar'];?>" width="40"'.' height="40" alt="Пользователь">
                 </div>
                 <div class="user-menu__logged">
-                    <p><?=$data['user_name'];?></p>
+                    <p><?=$_SESSION['is_auth']['user_name'];?></p>
+                    <a href="logout.php">Выход</a>
                 </div>
             <?php else: ?>
                 <ul class="user-menu__list">
                     <li class="user-menu__item"><a href="#">Регистрация</a></li>
-                    <li class="user-menu__item"><a href="#">Вход</a></li>
+                    <li class="user-menu__item"><a href="login.php">Вход</a></li>
                 </ul>
             <? endif; ?>
         </nav>
@@ -46,7 +47,7 @@
             <?php $index = 0;
             while (count($data['category']) > $index): ?>
                 <li class="nav__item">
-                    <a href="all-lots.html"><?=$data['category'][$index];?></a>
+                    <a href="all-lots.php"><?=$data['category'][$index];?></a>
                 </li>
                 <?php $index += 1;?>
             <?php endwhile;?>

@@ -1,5 +1,12 @@
 <?php
 require_once 'functions.php';
+session_start();
+// Запрет для неавторизованных пользователей.
+if (!isset($_SESSION['is_auth'])) {
+   http_response_code(403);
+   exit();
+};
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
     $required = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
