@@ -1,7 +1,3 @@
-<?php
-var_dump($error_list);
-var_dump($error_vars);
-?>
 
 <form class="form container <?php if ($error_list and $error_list['form_invalid']) print($error_list['form_invalid']); ?>" action="login.php" method="post"> <!-- form--invalid -->
     <h2>Вход</h2>
