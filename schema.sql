@@ -27,12 +27,16 @@ create table lots (
     expire_date int,
     category_id char(10),
     user_id smallint,
-    price mediumint,
     step smallint,
-    winner_id smallint
+    winner_id smallint,
+    curr_price mediumint,
+    start_price mediumint
 );
 create unique index id on lots(id);
-create index price on lots(price);
+
+create index curr_price on lots(curr_price);
+create index start_price on lots(start_price);
+
 create index step on lots(step);
 create index category_id on lots(category_id);
 create index user_id on lots(user_id);
