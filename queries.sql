@@ -32,4 +32,4 @@ select title, start_price, img, curr_price, category_id from lots l
 join categories c on l.category_id = c.id
 where add_date >= 1570775006 and winner_id is null;
 /*Получить лот по id*/
-
+delete from users where id = 5;
