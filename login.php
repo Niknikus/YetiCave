@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
                 $error_vars["email"] = $form["email"];
             } else {
                 $sess_name = "is_auth";
-                $sess_user = ["user_name" => $user["name"], "user_avatar" => $user["img"]];
+                $sess_user = ["uid" => $user["id"], "user_name" => $user["name"], "user_avatar" => $user["img"]];
                 $_SESSION[$sess_name] = $sess_user;
             };
         };

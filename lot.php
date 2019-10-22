@@ -1,41 +1,42 @@
 <?php
 session_start();
-require_once 'functions.php';
-require_once 'lot-list.php';
+require_once "functions.php";
 
-$cookie_history = 'history';
+$category = get_category($link);
+$cookie_history = "history";
 $expire_date = time()+60*60*24*30;
-$history_path = '/';
+$history_path = "/";
 
-if (!isset($_GET['newlot'])) {
-    $index = $_GET['id'] - 1;
-    if (!($lots_list[$index])) {
-        header('Location: ../error404.php');
+// Нужно поставить условие, что если в header есть get["newLot"], то нужно запросить из БД последний добавленный лот.
+// Или, возможно лучше будет добавить запрос о последнем добавленном лоте в add.php, и просто прислать сюда нужный индекс.
+
+if (isset($_GET["id"])) {
+    $lot = get_lot_byId($link, $_GET["id"]);
+    $bets = get_bets_byLotId($link, $_GET["id"]);
+    if ($lot == "Нет такого лота") {
+        header("Location: ../error404.php");
     };
 };
 
-if (!isset($_COOKIE[$cookie_history]) and $_GET['id']) {
-    $new_data = [$index];
+if (!isset($_COOKIE[$cookie_history]) and $_GET["id"]) {
+    $new_data = [$_GET["id"]];
     $cookie_data = json_encode($new_data);
     setcookie($cookie_history, $cookie_data, $expire_date, $history_path);
-} elseif (isset($_COOKIE[$cookie_history]) and $_GET['id']) {
-    $old_data = json_decode($_COOKIE['history'], true);
-    if (!in_array($index, $old_data)) {
-        $old_data[] = $index;
+} elseif (isset($_COOKIE[$cookie_history]) and $_GET["id"]) {
+    $old_data = json_decode($_COOKIE["history"], true);
+    if (!in_array($_GET["id"], $old_data)) {
+        $old_data[] = $_GET["id"];
         $new_data = json_encode($old_data);
         unset($_COOKIE[$cookie_history]);
         setcookie($cookie_history, $new_data, $expire_date, $history_path);
     };
 };
 
+$link->close();
 
+$content_page = render_template("templates/lot.php", ["lot" => $lot, "bets" => $bets]);
 
-$content_page = render_template('templates/lot.php', ['lot' => $lots_list[$index]]);
-
-renderPage('templates/layout.php', ['content' => $content_page, 'title' => $lots_list[$index]['title'],
-    'user_name' => 'Гость',
-    'user_avatar' => 'img/user.jpg',
-    'category' => ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'],
-    'is_auth' => (boolean) rand(0, 1)
+renderPage("templates/layout.php", ["content" => $content_page, "title" => $lot["title"],
+    "category" => $category
 ]);
 ?>
